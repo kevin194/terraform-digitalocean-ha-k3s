@@ -10,6 +10,11 @@ resource "digitalocean_firewall" "ccm_firewall" {
 resource "digitalocean_firewall" "k3s_firewall" {
   name = "k3s-firewall"
 
+  depends_on = [
+    digitalocean_project_resources.k3s_server_nodes,
+    digitalocean_project_resources.k3s_agent_nodes
+  ]
+
   tags = [local.server_droplet_tag, local.agent_droplet_tag]
 
   inbound_rule {
